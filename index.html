@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ម៉ាស៊ីនគិតលេខ & ទិញ Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@100;300;400;700;900&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+  
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  background:
+    radial-gradient(circle at t
+    op left, #312e81, transparent 40%),
+    radial-gradient(circle at bottom right, #0e7490, transparent 40%),
+    #080b18;
+
+  color: white;
+}
+
+/* Main Container */
+.container {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Calculator */
+.calculator {
+  padding: 25px;
+  border-radius: 28px;
+
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(129, 140, 248, 0.35);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(99, 102, 241, 0.1);
+
+  backdrop-filter: blur(15px);
+}
+
+/* Display */
+.display {
+  width: 100%;
+  height: 85px;
+
+  padding: 15px;
+  margin-bottom: 20px;
+
+  border: 1px solid #334155;
+  border-radius: 16px;
+
+  background: #080d1c;
+  color: #67e8f9;
+
+  text-align: right;
+  font-size: 2.2rem;
+  font-weight: bold;
+
+  outline: none;
+  box-shadow: inset 0 0 15px rgba(34, 211, 238, 0.05);
+}
+
+/* Buttons Grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* All Buttons */
+button {
+  min-height: 58px;
+
+  border: 1px solid #334155;
+  border-radius: 15px;
+
+  background: linear-gradient(145deg, #263449, #172235);
+  color: #f8fafc;
+
+  font-size: 1.25rem;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 4px 0 #0b1220;
+}
+
+button:hover {
+  background: linear-gradient(145deg, #3b4b66, #25344b);
+  border-color: #64748b;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+/* Operators */
+.operator {
+  background: linear-gradient(145deg, #2563eb, #1d4ed8);
+  border-color: #3b82f6;
+  color: white;
+}
+
+.operator:hover {
+  background: linear-gradient(145deg, #3b82f6, #2563eb);
+}
+
+/* Clear */
+.clear {
+  background: linear-gradient(145deg, #ef4444, #b91c1c);
+  border-color: #f87171;
+}
+
+.clear:hover {
+  background: linear-gradient(145deg, #f87171, #dc2626);
+}
+
+/* Equal */
+.equal {
+  grid-column: span 2;
+  background: linear-gradient(145deg, #10b981, #047857);
+  border-color: #34d399;
+}
+
+.equal:hover {
+  background: linear-gradient(145deg, #34d399, #059669);
+}
+
+/* Pro Button */
+.btn-pro {
+  grid-column: span 2;
+
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #fbbf24;
+  color: white;
+}
+
+.btn-pro:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  font-family: "Battambang", system-ui;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 20px;
+
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(8px);
+
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+
+  width: 100%;
+  max-width: 500px;
+
+  padding: 30px;
+  border-radius: 25px;
+
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 3px solid #05b4ef;
+
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* Close */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 22px;
+
+  color: #94a3b8;
+  font-size: 2rem;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  color: #f87171;
+  transform: rotate(90deg);
+}
+
+/* Pricing Title */
+.pricing-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.pricing-title h2 {
+  font-size: 1.6rem;
+  color: #f8fafc;
+    font-family: "Battambang", system-ui;
+
+}
+
+.pricing-title p {
+  color: #94a3b8;
+  margin-top: 8px;
+    font-family: "Battambang", system-ui;
+
+}
+
+/* Pricing Cards */
+.pricing-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+
+  padding: 18px 20px;
+  border-radius: 16px;
+
+  background: #080d1c;
+  border: 1px solid #334155;
+
+  transition: 0.2s ease;
+}
+
+.card:hover {
+  transform: translateX(4px);
+  border-color: #64748b;
+}
+
+.card.iron {
+  border-left: 5px solid #94a3b8;
+}
+
+.card.gold {
+  border-left: 5px solid #f59e0b;
+}
+
+.card.diamond {
+  border-left: 5px solid #38bdf8;
+}
+
+.card-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+    font-family: "Battambang", system-ui;
+
+}
+
+.card-info p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+    font-family: "Battambang", system-ui;
+
+}
+
+/* Buy Button */
+.buy-btn {
+  min-height: auto;
+  padding: 10px 18px;
+
+  font-size: 0.9rem;
+  border-radius: 10px;
+
+  box-shadow: none;
+}
+
+.iron .buy-btn {
+  background: #64748b;
+  font-family: "Battambang", system-ui;
+
+}
+
+.gold .buy-btn {
+  background: #d97706;
+  font-family: "Battambang", system-ui;
+}
+
+.diamond .buy-btn {
+  background: #0284c7;
+  font-family: "Battambang", system-ui;
+}
+
+/* Mobile Responsive */
+@media (max-width: 420px) {
+  .calculator {
+    padding: 18px;
+  }
+
+  .display {
+    height: 75px;
+    font-size: 1.8rem;
+  }
+
+  .buttons {
+    gap: 9px;
+  }
+
+  button {
+    min-height: 52px;
+    font-size: 1.1rem;
+  }
+
+  .modal-content {
+    padding: 25px 18px;
+  }
+}
+</style>
+
+  
+</head>
+<body>
+
+  <div class="container">
+    <div class="calculator">
+      <input type="text" class="display" id="display" readonly value="0">
+      <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button onclick="appendValue('/')" class="operator">÷</button>
+        <button onclick="appendValue('*')" class="operator">×</button>
+        <button onclick="appendValue('-')" class="operator">-</button>
+
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('+')" class="operator">+</button>
+
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+
+        <button onclick="appendValue('0')">0</button>
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="appendValue('.')">.</button>
+
+        <button class="equal" onclick="openModal()">=</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal ទិញ Pro -->
+  <div class="modal" id="proModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div class="pricing-title">
+        <h2>ទិញកញ្ចប់ Pro 👑</h2>
+        <p style="color: #94a3b8; margin-top: 5px;"  >ជ្រើសរើសកញ្ចប់ដែលសមស្របសម្រាប់អ្នក</p>
+      </div>
+
+      <div class="pricing-cards">
+        <!-- Iron Plan -->
+        <div class="card iron">
+          <div class="card-info">
+            <h3>MVP</h3>
+            <p>$40 / ខែ (1 Month)</p>
+          </div>
+          <button class="buy-btn" onclick="buyPlan('Iron', 1)">ទិញ</button>
+        </div>
+
+        <!-- Gold Plan -->
+        <div class="card gold">
+          <div class="card-info">
+            <h3>VIP</h3>
+            <p>$70 / ខែ (1 Month)</p>
+          </div>
+          <button class="buy-btn" onclick="buyPlan('Gold', 3)">ទិញ</button>
+        </div>
+
+        <!-- Diamond Plan -->
+        <div class="card diamond">
+          <div class="card-info">
+            <h3>KING</h3>
+            <p>$100 / ខែ (1 Month)</p>
+          </div>
+          <button class="buy-btn" onclick="buyPlan('Diamond', 5)">ទិញ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    const modal = document.getElementById('proModal');
+
+    function appendValue(val) {
+      if (display.value === '0' || display.value === 'Error') {
+        display.value = val;
+      } else {
+        display.value += val;
+      }
+    }
+
+    function clearDisplay() {
+      display.value = '0';
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch (e) {
+        display.value = 'Error';
+      }
+    }
+
+    function openModal() {
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    function buyPlan(planName, price) {
+      alert(`អ្នកបានជ្រើសរើសទិញកញ្ចប់ ${planName} តម្លៃ $${price}/ខែ!`);
+      closeModal();
+    }
+
+    // ចុចខាងក្រៅ Modal ដើម្បីបិទ
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+  </script>
+</body>
+</html>
